@@ -17,5 +17,9 @@
     "notifications",
     "declarativeContent",
     "https://api.tvshowtime.com/"
-  ]
+  ],
+  "content_scripts": [{
+    "matches": ["*://*.netflix.com/watch*"],
+    "js": ["src/content/netflix_content.js"]
+  }]
 }
