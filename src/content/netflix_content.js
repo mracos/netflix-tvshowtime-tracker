@@ -1,17 +1,29 @@
 (function(){
   'use strict';
 
-  var elements = {
-    showInfo: {
-      class: 'player-status'
-    },
+  function executeWhenLoaded() {
+    try {
+      var elements = {
+        showInfo: {
+          className: 'player-status'
+        },
 
-    progress: {
-      class: 'player-something',
-      styleElement: 'widht-or-someshit'
+        progress: {
+          className: 'player-scrubber-progress-completed',
+          styleElement: 'width'
+        }
+
+      };
+
+      var show = document.getElementsByClassName(elements.showInfo.className)[0];
+      var progress = document.getElementsByClassName(elements.progress.className);
+
+      if (show) {
+        console.log(show);
+      }
+    } catch (err) {
+      console.log("sem netflix ainda");
     }
-
-  };
-
-  console.log('contet-stciprt');
+  }
+  window.setInterval(executeWhenLoaded, 20000);
 })();
