@@ -15,11 +15,27 @@
 
       };
 
-      var show = document.getElementsByClassName(elements.showInfo.className)[0];
-      var progress = document.getElementsByClassName(elements.progress.className);
+      var showInfoElement = document.getElementsByClassName(elements.showInfo.className)[0];
+      var progressElement = document.getElementsByClassName(elements.progress.className)[0];
 
-      if (show) {
-        console.log(show);
+
+      // if the player is loaded
+      if (showInfoElement && progressElement) {
+        // if it is a show
+        if (showInfoElement.childElementCount >= 3) {
+          var show = {
+            name: showInfoElement.children[0].innerText,
+            temp: showInfoElement.children[1].innerText,
+            ep: showInfoElement.children[2].innerText
+          };
+
+          var progress = parseInt(progressElement.style.getPropertyValue(elements.progress.styleElement));
+          
+          // if more than 50% watched we send to background the info
+          if (progress > 50) {
+            console.log(show);
+          }
+        }
       }
     } catch (err) {
       console.log("sem netflix ainda");
