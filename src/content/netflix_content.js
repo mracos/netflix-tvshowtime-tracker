@@ -22,11 +22,15 @@
       // if the player is loaded
       if (showInfoElement && progressElement) {
         // if it is a show
-        if (showInfoElement.childElementCount >= 3) {
+        if (showInfoElement.childElementCount > 2) {
+          // TODO better way to do this
+          var tempEp = showInfoElement.children[1].innerText.split(':');
+          // make numbers from the strings
+          tempEp = tempEp.map(function(n) { return n.replace(/[^0-9]/g, ''); });
           var show = {
             name: showInfoElement.children[0].innerText,
-            temp: showInfoElement.children[1].innerText,
-            ep: showInfoElement.children[2].innerText
+            temp: parseInt(tempEp[0], 10),
+            ep: parseInt(tempEp[1], 10)
           };
 
           var progress = parseInt(progressElement.style.getPropertyValue(elements.progress.styleElement));
@@ -38,7 +42,7 @@
         }
       }
     } catch (err) {
-      console.log("sem netflix ainda");
+      console.log(err);
     }
   }
   window.setInterval(executeWhenLoaded, 20000);
