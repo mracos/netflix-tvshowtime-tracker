@@ -1,6 +1,8 @@
 (function(){
   'use strict';
 
+  var done = false;
+
   function executeWhenLoaded() {
     try {
       var elements = {
@@ -34,16 +36,27 @@
           };
 
           var progress = parseInt(progressElement.style.getPropertyValue(elements.progress.styleElement));
-          
+
           // if more than 50% watched we send to background the info
           if (progress > 50) {
-            console.log(show);
+            if (!done) {
+              console.log('sending message');
+              chrome.runtime.sendMessage(show, function(res) {
+                // after notified stop marking and sending notifications
+                if (res.status === 'done') {
+                  done = true;
+                }
+              });
+            }
           }
         }
+        // if not loaded, assume new ep
+      } else {
+        done = false;
       }
     } catch (err) {
       console.log(err);
     }
   }
-  window.setInterval(executeWhenLoaded, 20000);
+  window.setInterval(executeWhenLoaded, 10000);
 })();
